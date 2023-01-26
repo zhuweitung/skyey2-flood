@@ -3,3 +3,8 @@ cron:
 topicReplyPool:
 latestTopicId:
 latestTopicPublishTime:
+notification:
+  telegram:
+    botToken:
+    chatId:
+    httpProxy:

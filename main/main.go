@@ -74,7 +74,9 @@ func run() {
 
 	c.OnResponse(func(r *colly.Response) {
 		if r.StatusCode == 200 && r.Request.URL.String() == "https://www.skyey2.com/login.php" {
-			log.Fatalln("cookie失效，请获取最新的cookie并设置")
+			msg := "cookie失效，请获取最新的cookie并设置"
+			log.Fatalln(msg)
+			Send(msg)
 		}
 	})
 
