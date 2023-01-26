@@ -2,6 +2,6 @@ version: "3"
 services:
   skyey2-flood:
     container_name: skyey2-flood
-    image: skyey2-flood:latest
+    image: zhuweitung/skyey2-flood:latest
     volumes:
       - ./config:/skyey2-flood/config
