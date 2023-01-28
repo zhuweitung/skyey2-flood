@@ -2,7 +2,6 @@
 package main
 
 import (
-	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 )
 
@@ -15,23 +14,23 @@ var (
 func LoadConfig() {
 	viper.SetConfigType("yaml")
 	viper.SetConfigFile(CONFIG_FILE)
-	if err := viper.ReadInConfig(); err != nil {
-		panic(err)
-	}
-	if err := viper.Unmarshal(&CONFIG); err != nil {
-		panic(err)
-	}
-	viper.WatchConfig()
-	viper.OnConfigChange(func(in fsnotify.Event) {
-		if err := viper.Unmarshal(&CONFIG); err != nil {
-			panic(err)
-		}
-	})
+	load()
 }
 
 func SaveConfig(key string, value interface{}) {
 	viper.Set(key, value)
 	if err := viper.WriteConfig(); err != nil {
+		panic(err)
+	}
+	load()
+}
+
+// 加载配置
+func load() {
+	if err := viper.ReadInConfig(); err != nil {
+		panic(err)
+	}
+	if err := viper.Unmarshal(&CONFIG); err != nil {
 		panic(err)
 	}
 }
