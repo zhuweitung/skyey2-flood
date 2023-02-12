@@ -3,6 +3,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/gocolly/colly/v2"
 	"github.com/robfig/cron/v3"
 	"log"
@@ -70,13 +71,15 @@ func run() {
 	})
 
 	c.OnError(func(r *colly.Response, err error) {
-		log.Fatalln("Request URL:", r.Request.URL, "failed with response:", r, "\nError:", err)
+		msg := fmt.Sprint("Request URL:", r.Request.URL, "failed with response:", r, "\nError:", err)
+		log.Println(msg)
+		Send(msg)
 	})
 
 	c.OnResponse(func(r *colly.Response) {
 		if r.StatusCode == 200 && r.Request.URL.String() == "https://www.skyey2.com/login.php" {
 			msg := "cookie失效，请获取最新的cookie并设置"
-			log.Fatalln(msg)
+			log.Println(msg)
 			Send(msg)
 		}
 	})

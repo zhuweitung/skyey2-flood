@@ -49,7 +49,7 @@ func Send(message string) {
 		apiUrl := fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage", telegram.BotToken)
 		data := make(url.Values)
 		data["chat_id"] = []string{telegram.ChatId}
-		data["text"] = []string{message}
+		data["text"] = []string{"天雪水楼灌水\n" + message}
 		sendTelegram(getHttpClient(telegram.HttpProxy), apiUrl, data)
 	}
 }
@@ -89,6 +89,6 @@ func sendTelegram(httpclient http.Client, url string, data url.Values) {
 	if tgResp.Ok {
 		log.Println("推送电报消息成功")
 	} else {
-		log.Fatalln("推送电报消息失败: ", tgResp.Description)
+		log.Println("推送电报消息失败: ", tgResp.Description)
 	}
 }
